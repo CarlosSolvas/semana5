@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import rawProjects from '../../data/projects.json';
+
+interface Project {
+  title: string;
+  slug: string;
+  description: string;
+  technologies: string[];
+  content: string;
+}
+
+// ✅ Mover la carga de datos DENTRO de la función
+export function getStaticPaths() {
+  const projects = rawProjects as Project[];
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = (rawProjects as Project[]).find((p) => p.slug === slug);
+
+if (!project) {
+  throw new Error(`Proyecto no encontrado para slug: ${slug}`);
+}
+---
+
+<BaseLayout title={project.title}>
+  <article>
+    <h1>{project.title}</h1>
+    <p><em>{project.description}</em></p>
+
+    <section>
+      <h2>Descripción detallada</h2>
+      <p>{project.content}</p>
+    </section>
+
+    <section>
+      <h3>Tecnologías utilizadas</h3>
+      <ul>
+        {project.technologies.map((tech) => (
+          <li>{tech}</li>
+        ))}
+      </ul>
+    </section>
+
+    <p><a href="/semana5/projects">← Volver a Proyectos</a></p>
+  </article>
+</BaseLayout>

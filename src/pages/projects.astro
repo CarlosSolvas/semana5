@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import rawProjects from '../data/projects.json';
+
+interface Project {
+  title: string;
+  slug: string;
+  description: string;
+  technologies: string[];
+}
+
+const projects = rawProjects as Project[];
+---
+
+<BaseLayout title="Proyectos">
+  <h1>Mis Proyectos</h1>
+  <ul>
+    {projects.map((project) => (
+      <li>
+        <a href={`/semana5/projects/${project.slug}`}>{project.title}</a> – {project.description}
+        <ul>
+          {project.technologies.map((tech) => (
+            <li>{tech}</li>
+          ))}
+        </ul>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

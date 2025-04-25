@@ -1,0 +1,24 @@
+[
+    {
+      "title": "Juego de la serpiente",
+      "slug": "snake",
+      "description": "Versión clásica del juego Snake con JavaScript.",
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "content": "Este proyecto es una versión clásica del famoso juego de la serpiente. Fue desarrollado con HTML, CSS y JavaScript."
+    },
+    {
+      "title": "Gestor de tareas",
+      "slug": "task-manager",
+      "description": "Aplicación para gestionar tareas con base de datos.",
+      "technologies": ["Java", "MySQL", "Spring Boot"],
+      "content": "Este gestor de tareas permite a los usuarios agregar, eliminar y marcar tareas como completadas. Utiliza una base de datos MySQL para almacenar las tareas."
+    },
+    {
+      "title": "Sitio web personal",
+      "slug": "portfolio",
+      "description": "Portafolio para mostrar mis proyectos y experiencia.",
+      "technologies": ["Astro", "Markdown", "Tailwind"],
+      "content": "Este sitio web es mi portafolio personal. Muestra todos mis proyectos, habilidades y experiencia laboral en un diseño atractivo."
+    }
+  ]
+  
