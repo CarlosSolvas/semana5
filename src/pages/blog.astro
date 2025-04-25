@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Definimos el tipo del post
+type Post = {
+  slug: string;
+  data: {
+    title: string;
+    date: string;
+  };
+};
+
+// Cargamos todos los posts de la colección "posts"
+const posts: Post[] = await getCollection('posts');
+---
+
+<BaseLayout title="Blog">
+  <h1>Blog</h1>
+
+  {posts.length === 0 ? (
+    <p>No hay posts todavía.</p>
+  ) : (
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <a href={`/semana5/blog/${post.slug}`}>{post.data.title}</a> —{' '}
+          <time>{post.data.date}</time>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>

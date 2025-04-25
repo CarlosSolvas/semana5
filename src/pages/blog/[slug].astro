@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+
+// 1) Generar estáticamente las rutas
+export async function getStaticPaths(): Promise<{ params: { slug: string } }[]> {
+  const posts: CollectionEntry<'posts'>[] = await getCollection('posts');
+  return posts.map((post: CollectionEntry<'posts'>) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+// 2) Obtener el slug de la URL
+const { slug } = Astro.params as { slug: string };
+
+// 3) Recuperar el post correspondiente
+type Post = CollectionEntry<'posts'>;
+const posts: Post[] = await getCollection('posts');
+const post = posts.find((p: Post) => p.slug === slug);
+if (!post) {
+  throw new Error(`No se encontró el post con slug "${slug}".`);
+}
+
+// 4) Renderizar el contenido Markdown
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <time datetime={post.data.date}>{post.data.date}</time>
+    <Content />
+  </article>
+</BaseLayout>

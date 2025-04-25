@@ -1,24 +1,25 @@
 ---
-// BaseLayout.astro
 const { title } = Astro.props;
 ---
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/semana5/styles/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Mi sitio web</title>
-    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/semana5/styles/global.css" />
   </head>
   <body>
     <header>
       <nav>
         <ul>
-          <li><a href="/" class="menu-item">Inicio</a></li>
-          <li><a href="/about" class="menu-item">Sobre mí</a></li>
-          <li><a href="/contact" class="menu-item">Contacto</a></li>
+          <li><a href="/semana5/" class="menu-item">Inicio</a></li>
+          <li><a href="/semana5/about" class="menu-item">Sobre mí</a></li>
+          <li><a href="/semana5/contact" class="menu-item">Contacto</a></li>
+          <li><a href="/semana5/blog" class="menu-item">Blog</a></li>
         </ul>
       </nav>
     </header>
