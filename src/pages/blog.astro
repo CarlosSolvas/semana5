@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import LikeButton from '../components/LikeButton.astro';
 
 // 1) Leemos todos los .md de src/content/posts
 const modules = import.meta.glob('../content/posts/*.md', { eager: true });
@@ -7,15 +9,13 @@ const modules = import.meta.glob('../content/posts/*.md', { eager: true });
 // 2) Transformamos a array de posts
 type Post = { slug: string; title: string; date: string };
 const posts: Post[] = Object.entries(modules).map(([path, mod]) => {
-  const fileName = path.split('/').pop()!;       // "primer-post.md"
-  const slug = fileName.replace(/\.md$/, '');    // "primer-post"
+  const fileName = path.split('/').pop()!;
+  const slug = fileName.replace(/\.md$/, '');
   const { title, date } = (mod as any).frontmatter || {};
   return { slug, title, date };
 })
-// 3) Filtramos los que no tienen frontmatter completo
-.filter((p) => p.title && p.date)
-// 4) Opcional: ordenamos por fecha (más reciente primero)
-.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  .filter((p) => p.title && p.date)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
 <BaseLayout title="Blog">
@@ -24,13 +24,27 @@ const posts: Post[] = Object.entries(modules).map(([path, mod]) => {
   {posts.length === 0 ? (
     <p>No hay posts todavía.</p>
   ) : (
-    <ul>
+    <section class="grid-cards">
       {posts.map((post) => (
-        <li>
-          <a href={`/semana5/blog/${post.slug}`}>{post.title}</a> —{' '}
-          <time datetime={post.date}>{post.date}</time>
-        </li>
+        <Card
+  title={post.title}
+  description={`Publicado el ${post.date}`}
+  link={`/semana5/blog/${post.slug}`}
+>
+  <LikeButton id={post.slug} />
+</Card>
+
       ))}
-    </ul>
+    </section>
   )}
 </BaseLayout>
+
+<style>
+  /* Aseguramos que este grid se aplique */
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+</style>

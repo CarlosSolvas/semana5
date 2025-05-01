@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
 import rawProjects from '../data/projects.json';
 
 interface Project {
@@ -7,6 +8,7 @@ interface Project {
   slug: string;
   description: string;
   technologies: string[];
+  content: string;
 }
 
 const projects = rawProjects as Project[];
@@ -14,16 +16,22 @@ const projects = rawProjects as Project[];
 
 <BaseLayout title="Proyectos">
   <h1>Mis Proyectos</h1>
-  <ul>
+  <section class="cards">
     {projects.map((project) => (
-      <li>
-        <a href={`/semana5/projects/${project.slug}`}>{project.title}</a> – {project.description}
-        <ul>
-          {project.technologies.map((tech) => (
-            <li>{tech}</li>
-          ))}
-        </ul>
-      </li>
+      <Card 
+        title={project.title}
+        description={project.description}
+        link={`/semana5/projects/${project.slug}`}
+      />
     ))}
-  </ul>
+  </section>
 </BaseLayout>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+</style>

@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // 1) Indicamos a Astro qué slugs generar
 export async function getStaticPaths() {
-  const modules = import.meta.glob('../../content/posts/*.md', { eager: true });
+  const modules = import.meta.glob('/src/content/posts/*.md', { eager: true });
   return Object.keys(modules).map((path) => {
     const fileName = path.split('/').pop()!;
     const slug = fileName.replace(/\.md$/, '');
@@ -14,8 +14,8 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 // 2) Volvemos a cargar solo ese módulo .md
-const modules = import.meta.glob('../../content/posts/*.md', { eager: true });
-const postModule = modules[`../../content/posts/${slug}.md`];
+const modules = import.meta.glob('/src/content/posts/*.md', { eager: true });
+const postModule = modules[`/src/content/posts/${slug}.md`];
 if (!postModule) {
   throw new Error(`No se encontró el post con slug "${slug}".`);
 }

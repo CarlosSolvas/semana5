@@ -1,0 +1,32 @@
+---
+import LikeButtonReact from './LikeButton.tsx';
+const { id } = Astro.props;
+---
+
+<LikeButtonReact id={id} client:load />
+
+<style>
+  .like-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .like-button:hover {
+    background-color: #45a049;
+  }
+
+  .like-count {
+    margin-left: 8px;
+    font-weight: bold;
+  }
+
+  .like-container {
+    margin-top: 1rem;
+  }
+</style>

@@ -1,8 +1,15 @@
-export default {
-    site: 'https://CarlosSolvas.github.io/semana5',
-    build: {
-      out: './dist', // Esto asegura que todo se genere en la carpeta dist.
-    },
-    base: "/semana5/", // 👈 Esto es lo que hay que agregar para GitHub Pages
-  };
-  
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+import react from '@astrojs/react';
+
+export default defineConfig({
+  // Ruta base de tu sitio (para links e import.meta.glob)
+  base: '/semana5/',
+
+  // Si alguna vez usas un adapter, iría aquí:
+  // integrations: [github()],
+  site: 'https://CarlosSolvas.github.io/semana5',
+
+  integrations: [react()],
+});
